@@ -3,11 +3,11 @@ using System;
 
 namespace DLL.Interfaces
 {
-    interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         IRepositories<Guest> Guests { get; }
         IRepositories<User> Users { get; }
-        IRepositories<Settlement> Settlemets { get; }
+        IRepositories<Settlement> Settlements { get; }
         IRepositories<Category> Categories { get; }
         void Save();
     }

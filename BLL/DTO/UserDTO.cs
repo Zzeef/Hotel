@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DLL.Entities
+namespace BLL.DTO
 {
-    public class Room
+    class UserDTO
     {
     }
 }

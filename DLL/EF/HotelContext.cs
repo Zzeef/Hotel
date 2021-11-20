@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DLL.EF
 {
-    class HotelContext : DbContext
+    public class HotelContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Guest> Guests { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DLL.Entities
 {
-    class Settlement
+    public class Settlement
     {
     }
 }

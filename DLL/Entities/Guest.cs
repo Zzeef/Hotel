@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DLL.Entities
 {
-    class Guest
+    public class Guest
     {
     }
 }
