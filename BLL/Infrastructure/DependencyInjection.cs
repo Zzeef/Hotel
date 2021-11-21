@@ -1,4 +1,6 @@
-﻿using DLL.EF;
+﻿using BLL.Interfaces;
+using BLL.Services;
+using DLL.EF;
 using DLL.Interfaces;
 using DLL.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +12,15 @@ namespace BLL.Infrastructure
     {
         public static IServiceCollection AddRepository(this IServiceCollection services)
         {
-            services.AddScoped<HotelContext>();
-            services.AddScoped<IUnitOfWork, EFUnitOfWork>();
-            services.AddDbContext<HotelContext>(option => option.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=HotelDB;Trusted_Connection=True;"));
-            return services;
+            services.AddDbContext<HotelContext>(option => option
+                .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=HotelDB;Trusted_Connection=True;MultipleActiveResultSets=true"));
+            
+            services.AddTransient<IUnitOfWork, EFUnitOfWork>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IRoomService, RoomService>();
+            services.AddTransient<IGuestService, GuestService>();
+
+            return services;    
         }
     }
 }

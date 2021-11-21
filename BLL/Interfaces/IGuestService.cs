@@ -1,17 +1,18 @@
 ﻿using System;
-using DLL.Entities;
 using BLL.Infrastructure;
 using System.Collections.Generic;
-
 using System.Threading.Tasks;
+using BLL.DTO;
 
 namespace BLL.Interfaces
 {
-    interface IGuestService
+    public interface IGuestService
     {
-        IEnumerable<Guest> GetAll { get; }
-        OperationDetails Add(Guest item);
-        OperationDetails Delete(Guid id);
-        Task<Guest> FindByIdAsync(Guid id);
+        IEnumerable<GuestDTO> GetGuests();
+        OperationDetails AddGuest(GuestDTO item);
+        OperationDetails DeleteGuest(Guid id);
+        Task<GuestDTO> FindGuestByIdAsync(Guid id);
+        bool ExistGuest(GuestDTO id);
+        void Dispose();
     }
 }

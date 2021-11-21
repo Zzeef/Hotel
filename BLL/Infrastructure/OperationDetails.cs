@@ -3,14 +3,12 @@
     public class OperationDetails 
     {
         public OperationDetails() { }
-        public OperationDetails(bool succedeed, string message, string prop)
+        public OperationDetails(bool succedeed, string message)
         {
             Succedeed = succedeed;
             Message = message;
-            Property = prop;
         }
         public bool Succedeed { get; private set; }
         public string Message { get; private set; }
-        public string Property { get; private set; }
     }
 }

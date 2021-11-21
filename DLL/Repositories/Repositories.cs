@@ -23,9 +23,9 @@ namespace DLL.Repositories
             return db;
         }
 
-        public async Task<T> GetByIdAsync(Guid id) 
+        public T Get(Guid id) 
         {
-            return await db.FindAsync(id);
+            return db.Find(id);
         }
 
         public void Create(T item) 

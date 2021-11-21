@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 namespace BLL.Interfaces
 {
-    interface IUserService
+    public interface IUserService
     {
-        IEnumerable<User> GetAll { get; }
+        IEnumerable<User> GetAll();
         OperationDetails Add(User item);
         OperationDetails Delete(Guid id);
         Task<User> FindByIdAsync(Guid id);

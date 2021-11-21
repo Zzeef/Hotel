@@ -3,14 +3,18 @@ using DLL.Entities;
 using BLL.Infrastructure;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using BLL.DTO;
 
 namespace BLL.Interfaces
 {
-    interface ICategoryService
+    public interface ICategoryService
     {
-        IEnumerable<Category> GetAll { get; }
-        OperationDetails Add(Category item);
-        OperationDetails Delete(Guid id);
-        Task<Category> FindByIdAsync(Guid id);
+        IEnumerable<CategoryDTO> GetCategories(); 
+        OperationDetails AddCategory(CategoryDTO item);
+        OperationDetails DeleteCategory(Guid id);
+        Task<CategoryDTO> FindCategoryByIdAsync(Guid id);
+        bool ExistCategory(CategoryDTO item);
+        void Dispose();
     }
 }
+    

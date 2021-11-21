@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 namespace BLL.Interfaces
 {
-    interface ISettlementService
+    public interface ISettlementService
     {
-        IEnumerable<Settlement> GetAll { get; }
+        IEnumerable<Settlement> GetAll();
         OperationDetails Add(Settlement item);
         OperationDetails Delete(Guid id);
         Task<Settlement> FindByIdAsync(Guid id);

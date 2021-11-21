@@ -9,14 +9,25 @@ namespace DLL.Repositories
     public class EFUnitOfWork : IUnitOfWork
     {
         private readonly HotelContext db;
+        private RoomRepositories roomRepositories;
         private UserRepositories userRepositories;
         private GuestRepositories guestRepositories;
         private CategoryRepositories categoryRepositories;
         private SettlementRepositories settlementRepositories;
 
-        public EFUnitOfWork(DbContextOptions<HotelContext> options) 
+        public EFUnitOfWork(HotelContext context) 
         {
-            db = new HotelContext(options);
+            db = context;
+        }
+
+        public IRepositories<Room> Rooms 
+        {
+            get 
+            {
+                if (roomRepositories == null)
+                    roomRepositories = new RoomRepositories(db);
+                return roomRepositories;
+            }
         }
 
         public IRepositories<Guest> Guests

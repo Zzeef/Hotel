@@ -13,6 +13,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL.DTO;
+using BLL.Interfaces;
 
 namespace Hotel
 {
@@ -43,7 +45,7 @@ namespace Hotel
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync("Hello World!");
+                    await context.Response.WriteAsync("Hello World!@#@!#!");
                 });
             });
         }

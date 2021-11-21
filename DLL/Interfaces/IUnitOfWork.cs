@@ -5,6 +5,7 @@ namespace DLL.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
+        IRepositories<Room> Rooms { get; }
         IRepositories<Guest> Guests { get; }
         IRepositories<User> Users { get; }
         IRepositories<Settlement> Settlements { get; }

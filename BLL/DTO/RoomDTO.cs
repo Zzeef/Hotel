@@ -1,12 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DLL.Entities;
 
 namespace BLL.DTO
 {
-    class RoomDTO
+    public class RoomDTO
     {
+        public Guid Id { get; set; }
+
+        public int Number { get; set; }
+
+        public Guid CategoryId { get; set; }
+
+        public virtual Category Category { get; set; }
     }
 }
