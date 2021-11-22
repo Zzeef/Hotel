@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CategoryDTO>
+@{
+    ViewBag.Title = "Все категории";
+}
+<table class="table text-center">
+    <tr class="table-light">
+        <td>Категория</td>
+        <td>Кол. кроватей</td>
+        <td>Цена</td>
+        <td><a href="/Admin/CreateCategory" class="btn btn-outline-success btn-sm w-50" style="float:left">Добавить</a></td>
+    </tr>
+    @foreach (var i in Model)
+    {
+        <tr class="table-light">
+            <td class="text-center">@i.Name</td>
+            <td class="text-center">@i.Bed</td>
+            <td class="text-center">@i.Price</td>
+            <td>
+                <div style="display:flex" class="w-75">
+                    @using (Html.BeginForm("EditCategory", "Admin", i, FormMethod.Get))
+                    {
+                        <button class="btn btn-outline-warning btn-sm mr-1 w-auto" type="submit">Редактировать</button>
+                    }
+                    @using (Html.BeginForm("DeleteCategory", "Admin", i, FormMethod.Post))
+                    {
+                        <button class="btn btn-outline-danger btn-sm w-auto" type="submit">Удалить</button>
+                    }
+                </div>
+            </td>
+        </tr>
+    }
+</table>

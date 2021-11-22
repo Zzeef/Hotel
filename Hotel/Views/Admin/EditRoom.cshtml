@@ -1,0 +1,29 @@
+﻿@model RoomCreateModel
+@{
+    ViewBag.Title = "Редактирование комнаты комнаты";
+}
+<form asp-action="editroom" asp-controller="Admin">
+    <input type="hidden" asp-for="Room.Id" class="form-control" />
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.Message
+        </div>
+    }
+    <div class="form-group">
+        <label asp-for="Room.Number" class="control-label">Номер комнаты</label>
+        <input type="text" asp-for="Room.Number" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Room.CategoryId">Выберите категорию</label>
+        <select asp-for="Room.CategoryId" class="form-control" id="exampleFormControlSelect1">
+            @foreach (var i in Model.CategoriesList)
+            {
+                <option value="@i.Id">Категория: @i.Name; Кровати: @i.Bed; Цена: @i.Price;</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Отправить" class="btn btn-default" />
+    </div>
+</form>

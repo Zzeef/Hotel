@@ -12,6 +12,7 @@ namespace BLL.Interfaces
         IEnumerable<RoomDTO> GetRooms();
         OperationDetails AddRoom(RoomDTO item);
         OperationDetails DeleteRoom(Guid id);
+        OperationDetails UpdateRoom(RoomDTO item);
         Task<RoomDTO> FindRoomByIdAsync(Guid id);
         bool ExistRoom(RoomDTO item);
         void Dispose();

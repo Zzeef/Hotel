@@ -1,0 +1,35 @@
+﻿@model RoomCategoryModel
+@{
+    ViewBag.Title = "Все комнаты";
+}
+<table class="table text-center">
+    <tr class="table-light">
+        <td>Номер</td>
+        <td>Категория</td>
+        <td>Кол. кроватей</td>
+        <td>Цена</td>
+        <td><a href="/Admin/CreateRoom" class="btn btn-outline-success btn-sm w-50" style="float:left">Добавить</a></td>
+    </tr>
+    @foreach (var i in Model.Rooms)
+    {
+        var j = Model.Categories.First(x => x.Id == i.CategoryId);
+        <tr class="table-light">
+            <td class="text-center">@i.Number</td>
+            <td class="text-center">@j.Name</td>
+            <td class="text-center">@j.Bed</td>
+            <td class="text-center">@j.Price</td>
+            <td>
+                <div style="display:flex">
+                    @using (Html.BeginForm("EditRoom", "Admin", i, FormMethod.Get))
+                    {
+                        <button class="btn btn-outline-warning btn-sm mr-1" type="submit">Редактировать</button>
+                    }
+                    @using (Html.BeginForm("DeleteRoom", "Admin", i, FormMethod.Post))
+                    {
+                        <button class="btn btn-outline-danger btn-sm" type="submit">Удалить</button>
+                    }
+                </div>
+            </td>
+        </tr>
+    }
+</table>

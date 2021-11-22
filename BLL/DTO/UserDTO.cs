@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DLL.Entities;
+using System;
 
 namespace BLL.DTO
 {
-    class UserDTO
+    public class UserDTO
     {
+        public Guid Id { get; set; }
+
+        public string Login { get; set; }
+
+        public string Password { get; set; }
+
+        public string Role { get; set; }
+
+        public Guid GuestId { get; set; }
+
+        public virtual Guest Guest { get; set; }
     }
 }

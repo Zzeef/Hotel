@@ -1,0 +1,28 @@
+﻿@model CategoryDTO
+@{
+    ViewBag.Title = "Редактирование комнаты комнаты";
+}
+<form asp-action="editcategory" asp-controller="Admin">
+    <input type="hidden" asp-for="Id" class="form-control" />
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.Message
+        </div>
+    }
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Название</label>
+        <input type="text" asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Bed">Кол. кроватей</label>
+        <input type="text" asp-for="Bed" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Price">Цена</label>
+        <input type="text" asp-for="Price" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Отправить" class="btn btn-default" />
+    </div>
+</form>

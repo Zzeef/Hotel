@@ -59,6 +59,9 @@ namespace BLL.Services
         {
             Guest guest = await Task.Run(() => Database.Guests.Get(id));
 
+            if (guest == null)
+                return null;
+
             GuestDTO guestDTO = new GuestDTO() 
             {
                 Id = guest.Id,
@@ -82,8 +85,8 @@ namespace BLL.Services
         {
             Guest guest = Database.Guests.Get(item.Id);
             if (guest != null)
-                return false;
-            return true;
+                return true;
+            return false;
         }
 
         public void Dispose() 

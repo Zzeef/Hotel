@@ -1,0 +1,78 @@
+﻿@model Hotel.WEB.Model.RoomCategoryModel
+
+@{
+    ViewBag.Title = "Комнаты";
+}
+<form asp-action="index" asp-controller="home" method="post">
+    <table class="table text-center">
+        <tr>
+            <td>
+                <label class="control-label">Категория</label>
+                <select class="form-control" id="exampleFormControlSelect1" name="name">
+                    <option value=""></option>
+                    @foreach (var i in Model.Categories)
+                    {
+                        <option value="@i.Name">@i.Name</option>
+                    }
+                </select>
+            </td>
+            <td>
+                <label class="control-label">Кол. кроватей</label>
+                <select class="form-control" id="exampleFormControlSelect1" name="bed">
+                    <option value="0"></option>
+                    @foreach (var i in Model.Categories)
+                    {
+                        <option value="@i.Bed">@i.Bed</option>
+                    }
+                </select>
+            </td>
+            <td>
+                <label class="control-label">C</label>
+                <input type="date" class="form-control" name="startDate"/>
+            </td>
+            <td>
+                <label class="control-label">По</label>
+                <input type="date" class="form-control" name="endDate"/>
+            </td>
+            <td>
+                <label class="control-label">Цена</label>
+                <select class="form-control" id="exampleFormControlSelect1" name="price">
+                    <option value="0"></option>
+                    @foreach (var i in Model.Categories)
+                    {
+                        <option value="@i.Price">@i.Price</option>
+                    }
+                </select>
+            </td>
+            <td>
+                <div></div>
+                <input type="submit" value="Поиск" class="btn btn-default alert-success mt-xl-3 pb-4" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<table class="table text-center">
+    <tr class="table-light">
+        <td>Номер</td>
+        <td>Категория</td>
+        <td>Кол. кроватей</td>
+        <td>Цена</td>
+        <td></td>
+    </tr>
+    @foreach (var i in Model.Rooms)
+    {
+        var j = Model.Categories.First(x => x.Id == i.CategoryId);
+        <tr class="table-light">
+            <td class="text-center">@i.Number</td>
+            <td class="text-center">@j.Name</td>
+            <td class="text-center">@j.Bed</td>
+            <td class="text-center">@j.Price</td>
+            <td>
+                <form action="/Home/Booking/@i.Id" method="get">
+                    <button class="btn btn-outline-warning btn-sm" type="submit">Забронировать</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

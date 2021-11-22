@@ -1,22 +1,16 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace DLL.Entities
 {
-    public enum UserRoles
-    {
-        Admin,
-        User
-    }
-
     public class User
     {
-        [Key]
+        public Guid Id { get; set; }
+
         public string Login { get; set; }
 
         public string Password { get; set; }
 
-        public UserRoles Role { get; set; }
+        public string Role { get; set; }
 
         public Guid GuestId { get; set; }
 

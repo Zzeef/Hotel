@@ -53,9 +53,30 @@ namespace BLL.Services
             return new OperationDetails(true, "Комната удалена");
         }
 
+        public OperationDetails UpdateRoom(RoomDTO item) 
+        {
+            //if (ExistRoom(item))
+            //{
+            //    return new OperationDetails(false, "Такая комната существует");
+            //}
+
+            Room room = new Room()
+            {
+                Id = item.Id,
+                Number = item.Number,
+                CategoryId =item.CategoryId
+            };
+            Database.Rooms.Update(room);
+            Database.Save();
+            return new OperationDetails(true, "Данные обновлены");
+        }
+
         public async Task<RoomDTO> FindRoomByIdAsync(Guid id)
         {
             Room room = await Task.Run(() => Database.Rooms.Get(id));
+
+            if (room == null)
+                return null;
 
             RoomDTO roomDTO = new RoomDTO() 
             {
@@ -76,12 +97,10 @@ namespace BLL.Services
         public bool ExistRoom(RoomDTO item)
         {
             Room room = Database.Rooms.Get(item.Id);
-            if (room != null)
-                return false;
             var list = Database.Rooms.GetAll().Where(x => x.Number == item.Number).ToList();
-            if (list != null)
-                return false;
-            return true;
+            if (room != null | list.Count > 0)
+                return true;
+            return false;
         }
 
         public void Dispose()

@@ -21,7 +21,7 @@ namespace BLL.Services
         }
 
         public OperationDetails AddCategory(CategoryDTO item)
-        {        
+        {
             if (ExistCategory(item)) 
             {
                 return new OperationDetails(false, "Данная категория существует");
@@ -54,9 +54,30 @@ namespace BLL.Services
             return new OperationDetails(true, "Категория удалена");
         }
 
+        public OperationDetails UpdateCategory(CategoryDTO item) 
+        {
+            //if (ExistCategory(item))
+            //{
+            //    return new OperationDetails(false, "Данная категория существует");
+            //}
+            Category category = new Category()
+            {
+                Id = item.Id,
+                Name = item.Name,
+                Bed = item.Bed,
+                Price = item.Price
+            };
+            Database.Categories.Update(category);
+            Database.Save();
+            return new OperationDetails(true, "Данные обновлены");
+        }
+
         public async Task<CategoryDTO> FindCategoryByIdAsync(Guid id)
         {
             Category category = await Task.Run(() => Database.Categories.Get(id));
+
+            if (category == null)
+                return null;
 
             CategoryDTO categoryDTO = new CategoryDTO() 
             {
@@ -78,12 +99,10 @@ namespace BLL.Services
         public bool ExistCategory(CategoryDTO item) 
         {
             Category category = Database.Categories.Get(item.Id);
-            if (category != null)
-                return false;
-            var list = Database.Categories.GetAll().Where(x => x.Name == item.Name && x.Bed == item.Bed).ToList();
-            if (list != null)
-                return false;
-            return true;
+            var list = Database.Categories.GetAll().Where(x => x.Name == item.Name && x.Bed == item.Bed);
+            if (category != null | list.Count() != 0)
+                return true;
+            return false;
         }
 
         public void Dispose()

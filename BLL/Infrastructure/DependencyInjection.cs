@@ -19,6 +19,8 @@ namespace BLL.Infrastructure
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IRoomService, RoomService>();
             services.AddTransient<IGuestService, GuestService>();
+            services.AddTransient<ISettlementService, SettlementService>();
+            services.AddTransient<IUserService, UserService>();
 
             return services;    
         }

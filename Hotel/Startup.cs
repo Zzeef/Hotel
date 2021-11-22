@@ -1,6 +1,3 @@
-using DLL.EF;
-using DLL.Interfaces;
-using DLL.Repositories;
 using BLL.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BLL.DTO;
 using BLL.Interfaces;
 
 namespace Hotel
@@ -30,9 +26,10 @@ namespace Hotel
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRepository();
+            services.AddMvc();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IRoomService room)
         {
             if (env.IsDevelopment())
             {
@@ -43,10 +40,9 @@ namespace Hotel
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!@#@!#!");
-                });
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

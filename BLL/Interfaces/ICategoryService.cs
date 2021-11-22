@@ -12,6 +12,7 @@ namespace BLL.Interfaces
         IEnumerable<CategoryDTO> GetCategories(); 
         OperationDetails AddCategory(CategoryDTO item);
         OperationDetails DeleteCategory(Guid id);
+        OperationDetails UpdateCategory(CategoryDTO item);
         Task<CategoryDTO> FindCategoryByIdAsync(Guid id);
         bool ExistCategory(CategoryDTO item);
         void Dispose();
