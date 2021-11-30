@@ -3,12 +3,7 @@
     ViewBag.Title = "Добавление комнаты";
 }
 <form asp-action="createroom" asp-controller="Admin">
-    @if (!ViewData.ModelState.IsValid) 
-    {
-        <div class="alert alert-danger" role="alert">
-            @ViewBag.Message
-        </div>
-    }
+    <div class="validation text-danger" asp-validation-summary="All"></div>
         
     <div class="form-group">
         <label asp-for="Room.Number" class="control-label">Номер комнаты</label>

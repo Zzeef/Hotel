@@ -1,7 +1,12 @@
-﻿@model Hotel.WEB.Model.SettlementCreateModel
+﻿@model SettlementCreateModel
 @{
     ViewBag.Title = "Бронирование";
 }
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="validation text-danger">Нужно войти в аккаунт</div>
+}
+<div class="validation text-danger" asp-validation-summary="All"></div>
 <div class="form-group">
     <label class="control-label" asp-for="Room.Number">Номер комнаты</label>
     <input type="text" asp-for="Room.Number" class="form-control" readonly/>
@@ -14,7 +19,9 @@
 </div>
 
 <form asp-action="booking" asp-controller="home">
+
     <input type="hidden" asp-for="Room.Id" />
+    <input type="hidden" asp-for="Guest.Id" />
     <div class="form-group">
         <label asp-for="Settlement.StartDate" class="control-label">Начальная дата</label>
         <input type="date" asp-for="Settlement.StartDate" class="form-control" />
@@ -23,27 +30,10 @@
         <label asp-for="Settlement.EndDate" class="control-label">Конечная дата</label>
         <input type="date" asp-for="Settlement.EndDate" class="form-control" />
     </div>
-    <div class="form-group">
-        <label asp-for="Guest.FirstName" class="control-label">Имя</label>
-        <input type="text" asp-for="Guest.FirstName" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Guest.LastName" class="control-label">Фамилия</label>
-        <input type="text" asp-for="Guest.LastName" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Guest.Patronymic" class="control-label">Отчество</label>
-        <input type="text" asp-for="Guest.Patronymic" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Guest.BithDate" class="control-label">Дата рождения</label>
-        <input type="text" asp-for="Guest.BithDate" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Guest.PassportId" class="control-label">Номер паспорта</label>
-        <input type="text" asp-for="Guest.PassportId" class="form-control" />
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Отправить" class="btn btn-default" />
-    </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="form-group">
+            <input type="submit" value="Отправить" class="btn btn-default" />
+        </div>
+    }
 </form>

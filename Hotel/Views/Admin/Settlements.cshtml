@@ -1,0 +1,32 @@
+﻿@model SettlementModel
+@{
+    ViewBag.Title = "Все комнаты";
+}
+<table class="table text-center">
+    <tr class="table-light">
+        <td>Номер</td>
+        <td>С</td>
+        <td>По</td>
+        <td>ФИО</td>
+    </tr>
+    @foreach (var i in Model.Settlements)
+    {
+        <tr class="table-light">
+            <td class="text-center"><input type="hidden" asp-for="@i" />@Model.Rooms.FirstOrDefault(x => x.Id == i.RoomId).Number</td>
+            <td class="text-center">@i.StartDate</td>
+            <td class="text-center">@i.EndDate</td>
+            <td class="text-center">@Model.Guests.FirstOrDefault(x => x.Id == i.GuestId).FirstName</td>
+            <td>
+                <div style="display:flex">
+                    @if (i.CheckIn)
+                    {
+                        @using (Html.BeginForm("CheckOut", "Admin", i, FormMethod.Post))
+                        {
+                            <button class="btn btn-outline-danger btn-sm" type="submit">Выселить</button>
+                        }
+                    }
+                </div>
+            </td>
+        </tr>
+    }
+</table>

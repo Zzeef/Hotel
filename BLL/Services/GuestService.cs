@@ -81,6 +81,23 @@ namespace BLL.Services
             return mapper.Map<IEnumerable<Guest>, List<GuestDTO>>(Database.Guests.GetAll());
         }
 
+        public OperationDetails UpdateGuest(GuestDTO item)
+        {
+            Guest guest = new Guest()
+            {
+                Id = item.Id,
+                FirstName = item.FirstName,
+                LastName = item.LastName,
+                Patronymic = item.Patronymic,
+                BithDate = item.BithDate,
+                PassportId = item.PassportId
+            };
+
+            Database.Guests.Update(guest);
+            Database.Save();
+            return new OperationDetails(true, "Данные обновлены");
+        }
+
         public bool ExistGuest(GuestDTO item)
         {
             Guest guest = Database.Guests.Get(item.Id);

@@ -10,9 +10,9 @@
                 <label class="control-label">Категория</label>
                 <select class="form-control" id="exampleFormControlSelect1" name="name">
                     <option value=""></option>
-                    @foreach (var i in Model.Categories)
+                    @foreach (var i in Model.Categories.Select(x=>x.Name).Distinct())
                     {
-                        <option value="@i.Name">@i.Name</option>
+                        <option value="@i">@i</option>
                     }
                 </select>
             </td>
@@ -20,7 +20,7 @@
                 <label class="control-label">Кол. кроватей</label>
                 <select class="form-control" id="exampleFormControlSelect1" name="bed">
                     <option value="0"></option>
-                    @foreach (var i in Model.Categories)
+                    @foreach (var i in Model.Categories.OrderBy(x=>x.Bed))
                     {
                         <option value="@i.Bed">@i.Bed</option>
                     }
@@ -38,7 +38,7 @@
                 <label class="control-label">Цена</label>
                 <select class="form-control" id="exampleFormControlSelect1" name="price">
                     <option value="0"></option>
-                    @foreach (var i in Model.Categories)
+                    @foreach (var i in Model.Categories.OrderBy(x=>x.Price))
                     {
                         <option value="@i.Price">@i.Price</option>
                     }

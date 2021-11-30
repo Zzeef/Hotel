@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BLL.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Hotel
 {
@@ -26,6 +27,11 @@ namespace Hotel
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRepository();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(option => 
+                {
+                    option.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
             services.AddMvc();
         }
 
@@ -36,10 +42,13 @@ namespace Hotel
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();    
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
-            {
+            {   
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

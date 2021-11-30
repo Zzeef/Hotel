@@ -12,6 +12,7 @@ namespace BLL.Interfaces
         OperationDetails AddGuest(GuestDTO item);
         OperationDetails DeleteGuest(Guid id);
         Task<GuestDTO> FindGuestByIdAsync(Guid id);
+        OperationDetails UpdateGuest(GuestDTO item);
         bool ExistGuest(GuestDTO id);
         void Dispose();
     }

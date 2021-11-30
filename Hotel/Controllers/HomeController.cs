@@ -12,21 +12,25 @@ namespace Hotel.WEB.Controllers
     public class HomeController : Controller
     {
         readonly IRoomService roomService;
+        readonly IUserService userService;
+        readonly IGuestService guestService;
         readonly ICategoryService categoryService;
         readonly ISettlementService settlementService;
 
-        public HomeController(IRoomService roomService,ICategoryService categoryService, ISettlementService settlementService)
+        public HomeController(IRoomService roomService,ICategoryService categoryService, ISettlementService settlementService, IUserService userService, IGuestService guestService)
         {
             this.roomService = roomService;
             this.categoryService = categoryService;
             this.settlementService = settlementService;
+            this.userService = userService;
+            this.guestService = guestService;
         }
 
         public IActionResult Index()
         {
             RoomCategoryModel roomCategory = new RoomCategoryModel()
             {
-                Rooms = roomService.GetRooms(),
+                Rooms = roomService.GetRooms().Where(x => settlementService.GetSettlements().Any(y => y.RoomId != x.Id && y.StartDate < DateTime.Now)),
                 Categories = categoryService.GetCategories()
             };
 
@@ -63,7 +67,7 @@ namespace Hotel.WEB.Controllers
             if (endDate >= DateTime.Now)
             {
                 result.Rooms = result.Rooms.Where(x => !settlement.Any(y => y.RoomId == x.Id && endDate <= y.EndDate));
-            }
+            }        
 
             return View(result);
         }
@@ -80,10 +84,28 @@ namespace Hotel.WEB.Controllers
             return View(result);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Booking(SettlementCreateModel settlementCreateModel)
-        //{
+        [HttpPost]
+        public IActionResult Booking(SettlementCreateModel settlementCreateModel)
+        {
+            var guestId = userService.FindUserByLogin(User.Identity.Name).GuestId;
+            SettlementDTO settlementDTO = new SettlementDTO()
+            {
+                Id = Guid.NewGuid(),
+                RoomId = settlementCreateModel.Room.Id,
+                GuestId = guestId,
+                StartDate = settlementCreateModel.Settlement.StartDate,
+                EndDate = settlementCreateModel.Settlement.EndDate,
+                CheckIn = true
+            };
 
-        //}
+            var result = settlementService.AddSettlement(settlementDTO);
+            if (result.Succedeed) 
+            {
+                return RedirectToAction("Index","Home");
+            }
+
+            ModelState.AddModelError("", result.Message);
+            return View(settlementCreateModel.Room.Id);
+        } 
     }
 }

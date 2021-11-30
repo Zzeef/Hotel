@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DLL.Repositories
 {
-    class Repositories<T> : IRepositories<T> where T : class
+    public class Repositories<T> : IRepositories<T> where T : class
     {
         readonly HotelContext context;
         readonly DbSet<T> db;

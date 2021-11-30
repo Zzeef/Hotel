@@ -4,6 +4,7 @@ using BLL.Infrastructure;
 using BLL.Interfaces;
 using DLL.Entities;
 using DLL.Interfaces;
+using DLL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +75,25 @@ namespace BLL.Services
             return userDTO;
         }
 
+        public UserDTO FindUserByLogin(string login) 
+        {
+            User user = Database.Users.FindByLogin(login);
+
+            if (user == null)
+                return null;
+
+            UserDTO userDTO = new UserDTO()
+            {
+                Id = user.Id,
+                Login = user.Login,
+                Password = user.Password,
+                Role = user.Role,
+                GuestId = user.GuestId
+            };
+
+            return userDTO;
+        }
+
         public IEnumerable<UserDTO> GetUsers()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
@@ -83,7 +103,8 @@ namespace BLL.Services
         public bool ExistUser(UserDTO item)
         {
             User user = Database.Users.Get(item.Id);
-            if (user != null)
+            var list = Database.Users.GetAll().Where(x => x.Login == item.Login).ToList();
+            if (user != null | list.Count() > 0)
                 return true;
             return false;
         }

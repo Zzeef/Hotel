@@ -1,11 +1,17 @@
 ﻿using DLL.EF;
 using DLL.Entities;
+using System.Linq;
 
 namespace DLL.Repositories
 {
-    class UserRepositories : Repositories<User>
+    public class UserRepositories : Repositories<User>
     {
         readonly HotelContext context;
+
+        public User FindByLogin(string login) 
+        {
+            return context.Users.Where(x => x.Login == login).First();
+        }
 
         public UserRepositories(HotelContext context)
             : base(context)

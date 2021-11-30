@@ -1,4 +1,5 @@
 ﻿using DLL.Entities;
+using DLL.Repositories;
 using System;
 
 namespace DLL.Interfaces
@@ -7,8 +8,8 @@ namespace DLL.Interfaces
     {
         IRepositories<Room> Rooms { get; }
         IRepositories<Guest> Guests { get; }
-        IRepositories<User> Users { get; }
-        IRepositories<Settlement> Settlements { get; }
+        UserRepositories Users { get; }
+        SettlementRepositories Settlements { get; }
         IRepositories<Category> Categories { get; }
         void Save();
     }

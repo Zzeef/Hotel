@@ -1,9 +1,9 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - 000</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />  
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -13,6 +13,16 @@
             <div class="container" style="width:100%; text-align:center; justify-content:center">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Hotel</a>              
             </div>
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                    <a href="/Account/Profile" class="nav-link">Профиль</a>
+                }
+                else 
+                {
+                    <a href="/Account/Login" class="nav-link">Аккаунт</a>
+                }
+             }
         </nav>
     </header>
     <div class="container">
@@ -20,9 +30,9 @@
             @RenderBody()
         </main>
     </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="../wwwroot/lib/jquery/dist/jquery.min.js"></script>
+    <script src="../wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../wwwroot/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -15,12 +15,14 @@ namespace Hotel.WEB.Controllers
         readonly IRoomService roomService;
         readonly ICategoryService categoryService;
         readonly ISettlementService settlementService;
+        readonly IGuestService guestService;
 
-        public AdminController(IRoomService roomService, ICategoryService categoryService, ISettlementService settlementService)
+        public AdminController(IRoomService roomService, ICategoryService categoryService, ISettlementService settlementService, IGuestService guestService)
         {
             this.roomService = roomService;
             this.categoryService = categoryService;
             this.settlementService = settlementService;
+            this.guestService = guestService;
         }
 
         public IActionResult Rooms()
@@ -54,8 +56,7 @@ namespace Hotel.WEB.Controllers
                 return RedirectToAction("Rooms");
             }
 
-            ModelState.AddModelError("", "");
-            ViewData["Message"] = result.Message;
+            ModelState.AddModelError("", result.Message);
             roomCreateModel.CategoriesList = categoryService.GetCategories();
 
             return View(roomCreateModel);
@@ -82,8 +83,7 @@ namespace Hotel.WEB.Controllers
                 return RedirectToAction("Rooms");
             }
 
-            ModelState.AddModelError("", "");
-            ViewData["Message"] = result.Message;
+            ModelState.AddModelError("", result.Message);
             roomCreateModel.CategoriesList = categoryService.GetCategories();
 
             return View(roomCreateModel);
@@ -119,8 +119,7 @@ namespace Hotel.WEB.Controllers
                 return RedirectToAction("Categories");
             }
 
-            ModelState.AddModelError("", "");
-            ViewData["Message"] = result.Message;
+            ModelState.AddModelError("", result.Message);
 
             return View();         
         }
@@ -140,8 +139,7 @@ namespace Hotel.WEB.Controllers
                 return RedirectToAction("Categories");
             }
 
-            ModelState.AddModelError("", "");
-            ViewData["Message"] = result.Message;
+            ModelState.AddModelError("", result.Message);
 
             return View();
         }
@@ -157,9 +155,24 @@ namespace Hotel.WEB.Controllers
             return RedirectToAction("Categories");
         }
 
-        public IActionResult BookingList()
+        public IActionResult Settlements()
         {
-            return View();
+            SettlementModel settlementModel = new SettlementModel() 
+            {
+                Rooms = roomService.GetRooms(),
+                Guests = guestService.GetGuests(),
+                Settlements = settlementService.GetSettlements()
+            };
+            return View(settlementModel);
         }
+
+        public IActionResult CheckOut(SettlementDTO item) 
+        {
+            item.CheckIn = false;
+            settlementService.UpdateSettlement(item);
+            return RedirectToAction("Settlements");
+        }
+
+
     }
 }

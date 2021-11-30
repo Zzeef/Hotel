@@ -1,0 +1,10 @@
+﻿@model ProfileModel
+<label class="form-control">@Model.Login</label>
+<label class="form-control">@Model.FirstName</label>
+<label class="form-control">@Model.LastName</label>
+<label class="form-control">@Model.Patronymic</label>
+<label class="form-control">@Model.BithDate</label>
+<label class="form-control">@Model.PassportId</label>
+
+<a class="btn" href="/Account/Logout">Выйти</a>
+<a class="btn" href="/Account/RegisterProfile/@Model.Id">Заполнить профиль</a>

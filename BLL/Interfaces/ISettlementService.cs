@@ -12,7 +12,9 @@ namespace BLL.Interfaces
         IEnumerable<SettlementDTO> GetSettlements();
         OperationDetails AddSettlement(SettlementDTO item);
         OperationDetails DeleteSettlement(Guid id);
+        OperationDetails UpdateSettlement(SettlementDTO item);
         Task<SettlementDTO> FindSettlementByIdAsync(Guid id);
+        SettlementDTO FindSettlementsByGuestId(Guid id);
         bool ExistSettlement(SettlementDTO item);
         void Dispose();
     }

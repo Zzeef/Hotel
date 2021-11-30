@@ -40,7 +40,7 @@ namespace DLL.Repositories
             }
         }
 
-        public IRepositories<User> Users
+        public UserRepositories Users
         {
             get 
             {
@@ -60,7 +60,7 @@ namespace DLL.Repositories
             }
         }
 
-        public IRepositories<Settlement> Settlements
+        public SettlementRepositories Settlements
         {
             get 
             {
